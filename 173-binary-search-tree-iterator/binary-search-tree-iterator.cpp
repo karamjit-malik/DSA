@@ -12,7 +12,8 @@
 class BSTIterator {
 public:
 vector<int> order;
-stack<int> s;
+// stack<int> s;
+int i = 0;
     BSTIterator(TreeNode* root)
     {
         function<void(TreeNode*)> inorder = [&](TreeNode* root)
@@ -24,19 +25,21 @@ stack<int> s;
             inorder(root->right);
         };
         inorder(root);
-        reverse(order.begin(),order.end());
-        for(int i : order)
-        s.push(i);
+        // reverse(order.begin(),order.end());
+        // for(int i : order)
+        // s.push(i);
     }
     int next()
     {
-        int top = s.top();
-        s.pop();
-        return top;
+        // int top = s.top();
+        // s.pop();
+        // return top;
+        return order[i++];
     }
     bool hasNext()
     {
-        return !s.empty();
+        // return !s.empty();
+        return i<order.size();
     }
 };
 
