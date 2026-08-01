@@ -7,22 +7,22 @@ public:
         return 0;
         nums.insert(nums.begin(),1);
         nums.push_back(1);
-        n+=2;
-        vector<vector<int>> dp(n,vector<int>(n,-1));
-        return solve(nums,dp,1,n-2);
-    }
-    int solve(vector<int>& nums , vector<vector<int>>& dp , int i , int j)
-    {
-        if(i>j)
-        return 0;
-        if(dp[i][j]!=-1)
-        return dp[i][j];
-        int maxi = 0;
-        for(int k = i ; k<=j ; k++)
+        vector<vector<int>> dp(n+2,vector<int>(n+2,0));
+        for(int i = n ; i>=1 ; i--)
         {
-            int steps = nums[i-1]*nums[k]*nums[j+1] + solve(nums,dp,i,k-1) + solve(nums,dp,k+1,j);
-            maxi = max(maxi,steps);
+            for(int j = 1 ; j<=n ; j++)
+            {
+                if(i>j)
+                continue;
+                int maxi = INT_MIN;
+                for(int k = i ; k<=j ; k++)
+                {
+                    long long steps = nums[i-1]*nums[k]*nums[j+1] + dp[i][k-1] + dp[k+1][j];
+                    maxi = max(maxi,(int)steps);
+                }
+                dp[i][j] = maxi;
+            }
         }
-        return dp[i][j] = maxi;
+        return dp[1][n];
     }
 };
