@@ -1,0 +1,1 @@
+select activity_date as day ,count(distinct user_id) as active_users from activity where activity_type in ('open_session','scroll_down' , 'end_session' , 'send_message') and activity_date between '2019-06-28' and '2019-07-27' group by activity_date 
