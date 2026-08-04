@@ -1,0 +1,1 @@
+select distinct a.product_id , coalesce(round((sum(b.units * a.price)/sum(b.units)),2),0) as average_price FROM Prices a LEFT JOIN UnitsSold b ON a.product_id = b.product_id AND b.purchase_date BETWEEN a.start_date AND a.end_date group by a.product_id order by average_price asc
