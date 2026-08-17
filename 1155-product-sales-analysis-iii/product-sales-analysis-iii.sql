@@ -1,0 +1,1 @@
+select product_id , year as first_year , quantity , price from (select * , dense_rank() over(partition by product_id order by year asc) as rnk from sales) a where a.rnk = 1;
